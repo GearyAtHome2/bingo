@@ -10,3 +10,12 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
+
+# Build frontend
+WORKDIR /app/frontend
+RUN npm install
+RUN npm run build
+
+# Copy frontend assets into Spring Boot static folder
+COPY --from=build-frontend /app/frontend/dist/assets /app/backend/src/main/resources/static/assets
