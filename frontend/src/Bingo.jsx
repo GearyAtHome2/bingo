@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "./api";
-import { getPhraseStyle } from "./PhraseTypeHandler";
+import { getPhraseStyle } from "./phraseTypeHandler";
 
 export default function Bingo() {
     const email = localStorage.getItem("email");
