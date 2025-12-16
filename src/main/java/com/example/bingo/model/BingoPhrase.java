@@ -20,6 +20,8 @@ public class BingoPhrase {
         this.type = PhraseType.valueOf(type);
     }
 
+    public BingoPhrase() {}
+
     public enum PhraseType {
         NORMAL,
         CHALLENGE,
