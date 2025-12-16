@@ -13,7 +13,7 @@ public class BingoCard {
     private Long id;
 
     @ElementCollection
-    private List<BingoPhrase> phrases = new ArrayList<>();  // 25 phrases
+    private List<BingoPhrase> phrases = new ArrayList<>();
 
     @ElementCollection
     private List<Boolean> crossed = new ArrayList<>();
