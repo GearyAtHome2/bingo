@@ -15,6 +15,11 @@ public class BingoPhrase {
     @Enumerated(EnumType.STRING)
     private PhraseType type = PhraseType.NORMAL; // default to NORMAL
 
+    public BingoPhrase(String phrase, String type){
+        this.phrase = phrase;
+        this.type = PhraseType.valueOf(type);
+    }
+
     public enum PhraseType {
         NORMAL,
         CHALLENGE,
