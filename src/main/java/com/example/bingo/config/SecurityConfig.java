@@ -43,7 +43,7 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of(
             "http://localhost:8080",
             "http://192.168.0.33:8080",
-            "https://michael-bingo.onrender.com"//todo: add this once I've got the appname
+            "https://bingo-dfl1.onrender.com/"//todo: add this once I've got the appname
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
