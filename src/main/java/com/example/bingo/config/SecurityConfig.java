@@ -26,7 +26,7 @@ public class SecurityConfig {
                 "/assets/**",
                 "/login",
                 "/register",
-                "/health",
+                "/health", 
                 "/card",
                 "/toggle",
                 "/**"

@@ -45,18 +45,18 @@ public class BingoCard {
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
 
-    // Initialize crossed list safely
+
     public void initializeCrossed() {
-        if (crossed == null) {
-            crossed = new ArrayList<>();
+        if (crossed == null) crossed = new ArrayList<>();
+        if (phrases == null) phrases = new ArrayList<>();
+        
+        if (crossed.size() > phrases.size()) {
+            crossed = crossed.subList(0, phrases.size());
         }
-        if (phrases == null) {
-            phrases = new ArrayList<>();
-        }
-        System.out.println("\n about to populate crossed list based on phrases of size:" +phrases.size());
+        
         while (crossed.size() < phrases.size()) {
             crossed.add(false);
         }
-        System.out.println("\nsize of boolean list after population: "+crossed.size());
     }
+    
 }
