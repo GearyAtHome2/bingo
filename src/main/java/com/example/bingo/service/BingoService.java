@@ -26,23 +26,28 @@ public class BingoService {
                 .limit(25)
                 .collect(Collectors.toList());
     }
-
+    
     public void applyCrossedState(BingoCard card, List<Boolean> newCrossed) {
-        if (card == null || newCrossed == null) return;
+        if (card == null) throw new IllegalStateException("Card null");
+        if (newCrossed == null) throw new IllegalStateException("New crossed null");
     
         card.initializeCrossed();
     
         List<Boolean> crossed = card.getCrossed();
+        if (crossed == null) throw new IllegalStateException("Card crossed null");
     
-        // Safety: enforce correct size
-        if (newCrossed.size() != crossed.size()) return;
+        if (newCrossed.size() != crossed.size()) {
+            throw new IllegalStateException(
+                "Crossed size mismatch: incoming=" + newCrossed.size()
+                + " existing=" + crossed.size()
+            );
+        }
     
         for (int i = 0; i < crossed.size(); i++) {
             crossed.set(i, newCrossed.get(i));
         }
-    
-        card.setCrossed(crossed);
     }
+    
             
 
     public void togglePhrase(BingoCard card, int index) {
