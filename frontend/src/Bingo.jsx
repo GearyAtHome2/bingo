@@ -30,9 +30,10 @@ export default function Bingo() {
         }
     }
 
-    const getEffectiveCrossed = () =>
-    card.crossed.map((v, i) => pending[i] ?? v);
-
+    const getEffectiveCrossed = () => {
+        if (!card) return [];
+        return card.crossed.map((v, i) => pending[i] ?? v);
+    };
     const effectiveCrossed = getEffectiveCrossed();
 
 
@@ -78,7 +79,9 @@ export default function Bingo() {
 
     useEffect(() => { loadCard(); }, []);
 
-    if (!card?.phrases) return <div>Loading...</div>;
+    if (!card?.phrases) return <div>Right I know this page takes ages to load but the servers
+        are potato quality and in Frankfurt because I'm not paying money for this shit
+    </div>;
 
     const isDark = true; // simple toggle, could also read from user preference
 
