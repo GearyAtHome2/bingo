@@ -45,4 +45,4 @@ INSERT INTO bingo_phrases (phrase, type) VALUES
 ('Get 5 people clapping at the same time', 'CHALLENGE'),
 ('Get a stranger to wish Viv Happy Birthday', 'CHALLENGE'),
 ('Convince somebody you`re changing career', 'CHALLENGE'),
-('Get somebody to remove a shoe', 'CHALLENGE')
+('Get somebody to remove a shoe', 'CHALLENGE');
