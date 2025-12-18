@@ -19,11 +19,11 @@ export default function Bingo() {
             text: "🏆 Challenge tile! You have to achieve this yourself without a parent suspecting anything"
         },
         {
-            type: "phrase",
+            type: "declare",
             text: "🗣️ Phrase tile. If a parent says this phrase, you can cross it off. Again, do it without them suspecting anything"
         },
         {
-            type: "brexit",
+            type: "patriot",
             text: "🇬🇧 Brexit tile. No special rules here, just being patriotic"
         },
         {
@@ -34,9 +34,9 @@ export default function Bingo() {
 
     const typeColors = {
         general: isDark ? "#eee" : "#000",
-        challenge: "#FFD700", // gold
-        phrase: "#4CAF50",    // green
-        brexit: "#1976D2"     // blue
+        challenge: "#b71c1c", // gold
+        declare: "#f57c00",    // green
+        patriot: "#1e88e5"     // blue
     };
     
 
