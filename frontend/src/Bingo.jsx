@@ -7,6 +7,37 @@ export default function Bingo() {
     const [showInfo, setShowInfo] = useState(true);
     const [card, setCard] = useState(null);
     const [pending, setPending] = useState([]);
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const [isDark, setIsDark] = useState(prefersDark);
+    const infoParagraphs = [
+        {
+            type: "general",
+            text: "Welcome to Bingo! Each tile represents a unique phrase. Click to cross off tiles. Some tiles have special rules."
+        },
+        {
+            type: "challenge",
+            text: "🏆 Challenge tile! You have to achieve this yourself without a parent suspecting anything"
+        },
+        {
+            type: "phrase",
+            text: "🗣️ Phrase tile. If a parent says this phrase, you can cross it off. Again, do it without them suspecting anything"
+        },
+        {
+            type: "brexit",
+            text: "🇬🇧 Brexit tile. No special rules here, just being patriotic"
+        },
+        {
+            type: "general",
+            text: "Try not to ruin Christmas, god bless."
+        }
+    ];
+
+    const typeColors = {
+        general: isDark ? "#eee" : "#000",
+        challenge: "#FFD700", // gold
+        phrase: "#4CAF50",    // green
+        brexit: "#1976D2"     // blue
+    };
     
 
     if (!email) {
@@ -83,7 +114,6 @@ export default function Bingo() {
         are potato quality and in Frankfurt because I'm not paying money for this shit
     </div>;
 
-    const isDark = true; // simple toggle, could also read from user preference
 
     return (
         <div style={{ padding: 10, color: isDark ? "#eee" : "#000", backgroundColor: isDark ? "#121212" : "#fff", minHeight: "100vh" }}>
@@ -256,23 +286,22 @@ export default function Bingo() {
                             ×
                         </button>
                         <div style={{ paddingTop: 30 }}>
-                            <h2>Game Information</h2>
-                            <p>
-                                Welcome to Bingo! Each tile represents a unique phrase. Click to cross off tiles.
-                                Some tiles have special rules.
-                            </p>
-                            <p>
-                                🏆 This is a challenge tile! You have to achieve this yourself without a parent suspecting anything
-                            </p>
-                            <p>
-                                🗣️ Phrase tile - if a parent says this phrase, you can cross it off. Again, do it without them suspecting anything
-                            </p>
-                            <p>
-                                🇬🇧 Brexit tile. No special rules here, just being patriotic
-                            </p>
-                            <p>
-                                Try not to ruin Christmas, god bless.
-                            </p>
+                        <h2>Game Information</h2>
+                        {infoParagraphs.map((p, i) => {
+                            // Split the first 3 words
+                            const words = p.text.split(" ");
+                            const firstPart = words.slice(0, 3).join(" ") + " ";
+                            const rest = words.slice(3).join(" ");
+
+                            return (
+                                <p key={i}>
+                                    <span style={{ color: typeColors[p.type] }}>
+                                        {firstPart}
+                                    </span>
+                                    {rest}
+                                </p>
+                            );
+                        })}
                             <div style={{ marginTop: 30, textAlign: "center" }}>
                             <button
                                 onClick={() => setShowInfo(false)}

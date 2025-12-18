@@ -37,6 +37,6 @@ INSERT INTO bingo_phrases (phrase, type) VALUES
 ('Swap two people`s drinks', 'CHALLENGE'),
 ('Get 5 people clapping at the same time', 'CHALLENGE'),
 ('Convince somebody you`re going on holiday to Minsk', 'CHALLENGE'),
-('placeholder 3', 'PATRIOT'),
+('Reform UK', 'PATRIOT'),
 ('placeholder 10', 'CHALLENGE'),
 ('placeholder 17', 'DECLARE');
