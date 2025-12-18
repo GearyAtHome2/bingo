@@ -39,26 +39,21 @@ export default function Bingo() {
     const toggle = async (index) => {
         if (!card) return;
     
-        // 1. Optimistically update pending
         const nextPending = [...pending];
         const effective = pending[index] ?? card.crossed[index];
         nextPending[index] = !effective;
     
         setPending(nextPending);
-    
-        // 2. Compute full desired board
         const desiredCrossed = card.crossed.map(
             (v, i) => nextPending[i] ?? v
         );
     
         try {
-            // 3. Sync full state
             const res = await api.post("/sync", {
                 email,
                 crossed: desiredCrossed
             });
     
-            // 4. Reconcile
             setCard(prev => ({
                 ...prev,
                 crossed: res.data.crossed,
