@@ -2,6 +2,8 @@ package com.example.bingo.controller;
 
 import com.example.bingo.model.User;
 import com.example.bingo.model.BingoCard;
+import com.example.bingo.model.CardSyncResponse;
+import com.example.bingo.model.SyncRequest;
 import com.example.bingo.dto.BingoCardDto;
 import com.example.bingo.repository.UserRepository;
 import com.example.bingo.repository.BingoCardRepository;
@@ -93,6 +95,30 @@ public class UserController {
 
         return ResponseEntity.ok("{\"crossed\":" + card.getCrossed() + ", \"bingo\":" + bingo + "}");
     }
+
+    @PostMapping("/sync")
+    public ResponseEntity<?> syncCard(@RequestBody SyncRequest req) {
+
+        User user = userRepo.findByEmail(req.getEmail()).orElse(null);
+        if (user == null) {
+            return ResponseEntity.status(403).build();
+        }
+
+        BingoCard card = user.getBingoCard();
+        if (card == null) {
+            return ResponseEntity.badRequest().body("No card");
+        }
+
+        bingoService.applyCrossedState(card, req.getCrossed());
+        cardRepo.save(card);
+
+        boolean bingo = bingoService.hasBingo(card);
+
+        return ResponseEntity.ok(
+            new CardSyncResponse(card.getCrossed(), bingo)
+        );
+    }
+
     
     @GetMapping("/card")
     public ResponseEntity<BingoCardDto> getCard(@RequestParam String email) {

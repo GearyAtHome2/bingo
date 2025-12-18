@@ -6,17 +6,22 @@ export default function Bingo() {
     const email = localStorage.getItem("email");
     const [showInfo, setShowInfo] = useState(true);
     const [card, setCard] = useState(null);
+    const [pending, setPending] = useState([]);
+    
 
     if (!email) {
         window.location.href = "/login";
         return null; // escape before other calls made
     }
 
+
     async function loadCard() {
         try {
             const res = await api.get("/card", { params: { email } });
             setCard(res.data);
+            setPending(new Array(res.data.crossed.length).fill(null));
         } catch (err) {
+            console.warn("Network error or server unavailable");
             console.error(err);
             if (err.response?.status === 401 || err.response?.status === 403) {
                 localStorage.removeItem("email");
@@ -25,23 +30,51 @@ export default function Bingo() {
         }
     }
 
+    const getEffectiveCrossed = () =>
+    card.crossed.map((v, i) => pending[i] ?? v);
+
+    const effectiveCrossed = getEffectiveCrossed();
+
+
     const toggle = async (index) => {
-        if (!email) return;
+        if (!card) return;
+    
+        // 1. Optimistically update pending
+        const nextPending = [...pending];
+        const effective = pending[index] ?? card.crossed[index];
+        nextPending[index] = !effective;
+    
+        setPending(nextPending);
+    
+        // 2. Compute full desired board
+        const desiredCrossed = card.crossed.map(
+            (v, i) => nextPending[i] ?? v
+        );
+    
         try {
-            const res = await api.post("/toggle", { email, index });
+            // 3. Sync full state
+            const res = await api.post("/sync", {
+                email,
+                crossed: desiredCrossed
+            });
+    
+            // 4. Reconcile
             setCard(prev => ({
                 ...prev,
                 crossed: res.data.crossed,
                 bingo: res.data.bingo
             }));
+    
+            setPending(prev =>
+                prev.map((p, i) =>
+                    p === null || p === res.data.crossed[i] ? null : p
+                )
+            );
         } catch (err) {
-            console.error("Toggle failed:", err);
-            if (err.response?.status === 401 || err.response?.status === 403) {
-                localStorage.removeItem("email");
-                window.location.href = "/login";
-            }
+            console.error("Sync failed:", err);
         }
     };
+    
 
     const handleLogout = () => {
         localStorage.removeItem("email");
@@ -107,8 +140,14 @@ export default function Bingo() {
                 }}
             >
                 {card.phrases.map((phrase, i) => {
+                    const isPending = pending[i] !== null;
+                    const isCrossed = effectiveCrossed[i];
+                    
+                    const bg = isCrossed
+                        ? isPending ? "#AED581" : "#8BC34A"
+                        : style.backgroundColor;
+                    
                     const style = getPhraseStyle(phrase, card.crossed[i]);
-                    const bg = card.crossed[i] ? "#8BC34A" : style.backgroundColor;
                     const color = card.crossed[i] ? "#fff" : style.color;
 
                     return (
@@ -131,6 +170,7 @@ export default function Bingo() {
                                 boxSizing: "border-box",
                                 backgroundColor: bg,
                                 color: color,
+                                opacity: isPending ? 0.7 : 1,
                                 border: "1px solid #888"
                             }}
                         >

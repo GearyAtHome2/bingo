@@ -21,6 +21,7 @@ const PhraseTypes = {
     }
 };
 
+
 export function getPhraseStyle(phrase, isCrossed) {
     const typeInfo = PhraseTypes[phrase.type] || PhraseTypes.NORMAL;
     return {
