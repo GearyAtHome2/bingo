@@ -138,6 +138,8 @@ export default function Bingo() {
                 }}
             >
                 {card.phrases.map((phrase, i) => {
+                    const style = getPhraseStyle(phrase, card.crossed[i]);
+
                     const isPending = pending[i] !== null;
                     const isCrossed = effectiveCrossed[i];
                     
@@ -145,7 +147,6 @@ export default function Bingo() {
                         ? isPending ? "#AED581" : "#8BC34A"
                         : style.backgroundColor;
                     
-                    const style = getPhraseStyle(phrase, card.crossed[i]);
                     const color = card.crossed[i] ? "#fff" : style.color;
 
                     return (
@@ -154,6 +155,10 @@ export default function Bingo() {
                             onClick={() => toggle(i)}
                             style={{
                                 ...style,
+                                backgroundColor: bg,
+                                color: color,
+                                opacity: isPending ? 0.7 : 1,
+                                border: "1px solid #888",
                                 width: "100%",
                                 aspectRatio: "1 / 1",
                                 fontSize: "clamp(8px, 1.2vw, 12px)",
@@ -166,10 +171,6 @@ export default function Bingo() {
                                 position: "relative",
                                 textAlign: "center",
                                 boxSizing: "border-box",
-                                backgroundColor: bg,
-                                color: color,
-                                opacity: isPending ? 0.7 : 1,
-                                border: "1px solid #888"
                             }}
                         >
                             {style.emoji && (
