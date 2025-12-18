@@ -5,10 +5,12 @@ export default function Login({ onSuccess }) {
   const [email, setEmail] = useState("");
   const [mode, setMode] = useState("register");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   async function submit(e) {
     e.preventDefault();
     setError(null);
+    setLoading(true);
 
     try {
       const endpoint = mode === "register" ? "/register" : "/login";
@@ -26,11 +28,23 @@ export default function Login({ onSuccess }) {
       } else {
         setError(err.message);
       }
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <div style={{ padding: 20, maxWidth: 400, margin: "auto" }}>
+      {/* Inject spinner keyframes */}
+      <style>
+        {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}
+      </style>
+
       <h2>{mode === "register" ? "Register" : "Login"} to Bingo</h2>
 
       {error && (
@@ -54,12 +68,33 @@ export default function Login({ onSuccess }) {
       <button
         type="button"
         onClick={() => setMode(mode === "register" ? "login" : "register")}
-        style={{ padding: 6, width: "100%" }}
+        style={{ padding: 6, width: "100%", marginBottom: 20 }}
       >
         {mode === "register"
           ? "Already have an account? Login"
           : "New user? Register"}
       </button>
+
+      {/* Loading spinner and text */}
+      {loading && (
+        <div style={{
+          marginTop: 40,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center"
+        }}>
+          <div style={{
+            border: "4px solid #f3f3f3",
+            borderTop: "4px solid #555",
+            borderRadius: "50%",
+            width: 40,
+            height: 40,
+            animation: "spin 1s linear infinite",
+            marginBottom: 10
+          }}></div>
+          <div>Logging in, please wait...</div>
+        </div>
+      )}
     </div>
   );
 }
