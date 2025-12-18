@@ -19,6 +19,7 @@ public class BingoApplication {
         return args -> {
             long count = repo.count();
             System.out.println("Bingo phrases loaded in DB: " + count);
+            System.out.println("BUILD: " + System.currentTimeMillis());
             repo.findAll().forEach(p -> System.out.println(p.getPhrase() + " (" + p.getType() + ")"));
         };
     }

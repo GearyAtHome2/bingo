@@ -12,9 +12,13 @@ WORKDIR /app
 COPY pom.xml ./
 RUN mvn dependency:go-offline
 COPY src ./src
-# Copy built frontend assets into Spring Boot static folder
+
+# Copy built frontend
+COPY --from=build-frontend /app/frontend/dist/index.html src/main/resources/static/index.html
 COPY --from=build-frontend /app/frontend/dist/assets src/main/resources/static/assets
+
 RUN mvn clean package -DskipTests
+
 
 # ---- Stage 3: Run ----
 FROM eclipse-temurin:20-jdk-jammy
