@@ -92,7 +92,7 @@ export default function Login({ onSuccess }) {
             animation: "spin 1s linear infinite",
             marginBottom: 10
           }}></div>
-          <div>Logging in, please wait...</div>
+          <div>Sorry, I used a cheap server based in Frankfurt so it might take a while to log in...</div>
         </div>
       )}
     </div>

@@ -20,7 +20,7 @@ export default function Bingo() {
         },
         {
             type: "declare",
-            text: "🗣️ Phrase tile. If a parent says this phrase, you can cross it off. Again, do it without them suspecting anything"
+            text: "🗣️ Phrase tile. Slip this phrase into conversation without anyone being any the wiser to cross it off"
         },
         {
             type: "patriot",
