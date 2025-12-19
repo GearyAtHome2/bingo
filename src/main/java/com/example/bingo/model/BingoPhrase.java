@@ -13,7 +13,8 @@ public class BingoPhrase {
     private String phrase;
 
     @Enumerated(EnumType.STRING)
-    private PhraseType type = PhraseType.NORMAL; // default to NORMAL
+    @Column(name = "phrase_type", nullable = false)
+    private PhraseType type = PhraseType.NORMAL;
 
     public BingoPhrase(String phrase, String type){
         this.phrase = phrase;

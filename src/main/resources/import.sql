@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS bingo_phrases (
     id SERIAL PRIMARY KEY,
     phrase TEXT NOT NULL,
-    type TEXT NOT NULL,
+    phrase_type TEXT NOT NULL,
     UNIQUE(phrase)
 );
 
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS bingo_phrases (
 TRUNCATE TABLE bingo_phrases RESTART IDENTITY;
 
 -- Insert phrases
-INSERT INTO bingo_phrases (phrase, type) VALUES
+INSERT INTO bingo_phrases (phrase, phrase_type) VALUES
 ('Footy talk', 'NORMAL'),
 ('Somebody accused of drinking too much', 'NORMAL'),
 ('Viv mentions Parkrun', 'NORMAL'),
