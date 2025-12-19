@@ -24,6 +24,12 @@ const PhraseTypes = {
 
 export function getPhraseStyle(phrase, isCrossed) {
     const typeInfo = PhraseTypes[phrase.type] || PhraseTypes.NORMAL;
+    let color = typeInfo.color;
+
+    // Fix NORMAL text colour in light mode
+    if (phrase.type === "NORMAL" && !isCrossed) {
+        color = isDark ? "#dddddd" : "#222"; // dark grey on light theme
+    }
     return {
         backgroundColor: isCrossed ? "#8BC34A" : typeInfo.background,
         color: isCrossed ? "white" : typeInfo.color,

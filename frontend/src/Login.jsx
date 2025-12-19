@@ -55,7 +55,7 @@ export default function Login({ onSuccess }) {
 
       <form onSubmit={submit}>
         <input
-          placeholder="Email"
+          placeholder="Username (this can be any old rubbish)"
           value={email}
           onChange={e => setEmail(e.target.value)}
           style={{ padding: 8, width: "100%", marginBottom: 10 }}
