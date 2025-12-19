@@ -22,7 +22,7 @@ const PhraseTypes = {
 };
 
 
-export function getPhraseStyle(phrase, isCrossed) {
+export function getPhraseStyle(phrase, isCrossed, isDark) {
     const typeInfo = PhraseTypes[phrase.type] || PhraseTypes.NORMAL;
     let color = typeInfo.color;
 

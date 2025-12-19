@@ -168,7 +168,7 @@ export default function Bingo() {
                 }}
             >
                 {card.phrases.map((phrase, i) => {
-                    const style = getPhraseStyle(phrase, card.crossed[i]);
+                    const style = getPhraseStyle(phrase, card.crossed[i], isDark);
 
                     const isPending = pending[i] !== null;
                     const isCrossed = effectiveCrossed[i];
