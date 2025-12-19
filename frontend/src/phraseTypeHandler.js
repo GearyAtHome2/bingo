@@ -16,28 +16,25 @@ const PhraseTypes = {
     },
     NORMAL: {
         background: "rgba(128, 128, 128, 0.05)",
-        color: "#dddddd",
         emoji: null
     }
 };
 
-
 export function getPhraseStyle(phrase, isCrossed, isDark) {
     const typeInfo = PhraseTypes[phrase.type] || PhraseTypes.NORMAL;
-    let color = typeInfo.color;
 
-    // Fix NORMAL text colour in light mode
-    if (phrase.type === "NORMAL" && !isCrossed) {
-        color = isDark ? "#dddddd" : "#222"; // dark grey on light theme
-    }
+    const normalTextColor = isDark ? "#eee" : "#111"; // 👈 key line
+
     return {
         backgroundColor: isCrossed ? "#8BC34A" : typeInfo.background,
-        color: isCrossed ? "white" : typeInfo.color,
+        color: isCrossed
+            ? "#fff"
+            : typeInfo.color ?? normalTextColor,
         border: "1px solid #ccc",
         fontWeight: "normal",
-        className: "",
         emoji: typeInfo.emoji
     };
 }
+
 
 export default PhraseTypes;
