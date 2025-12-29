@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS bingo_phrases (
 );
 
 -- Optional: clear table before inserting
+TRUNCATE TABLE bingo_cards_phrases RESTART IDENTITY;
 TRUNCATE TABLE bingo_phrases RESTART IDENTITY;
 
 -- Insert phrases
