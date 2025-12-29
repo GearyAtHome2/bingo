@@ -1,11 +1,3 @@
--- Ensure the table exists
-CREATE TABLE IF NOT EXISTS bingo_phrases (
-    id SERIAL PRIMARY KEY,
-    phrase TEXT NOT NULL,
-    phrase_type TEXT NOT NULL,
-    UNIQUE(phrase)
-);
-
 -- Optional: clear table before inserting
 TRUNCATE TABLE bingo_cards_phrases RESTART IDENTITY;
 TRUNCATE TABLE bingo_phrases RESTART IDENTITY;
